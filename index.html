@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simabi Ltd — ComputeFence</title>
+<meta name="description" content="ComputeFence is a free, MIT-licensed CLI that catches silent configuration failures before your GPU training job starts billing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0d10;
+    --panel: #12161b;
+    --border: #232a33;
+    --text: #d6dde6;
+    --muted: #7d8896;
+    --accent: #7ee787;
+    --warn: #e3b341;
+    --link: #79c0ff;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--bg); }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  main, header, footer { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+  header { padding-top: 28px; padding-bottom: 8px; color: var(--muted); font-size: 13px; letter-spacing: .04em; }
+  header strong { color: var(--text); font-weight: 500; }
+  h1 { font-size: 28px; line-height: 1.25; margin: 56px 0 16px; font-weight: 700; letter-spacing: -.01em; }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin: 56px 0 14px; font-weight: 500; }
+  h2::before { content: "# "; color: var(--accent); }
+  p { margin: 0 0 14px; }
+  .lead { color: var(--muted); max-width: 62ch; }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  pre, .term {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 16px;
+    margin: 0 0 14px;
+    overflow-x: auto;
+    font-family: inherit;
+    font-size: 13.5px;
+    line-height: 1.6;
+    white-space: pre;
+  }
+  .prompt { color: var(--accent); user-select: none; }
+  .ok { color: var(--accent); }
+  .warn { color: var(--warn); }
+  .dim { color: var(--muted); }
+  .cta {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 18px;
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .cta:hover { background: var(--accent); color: var(--bg); text-decoration: none; }
+  ul { list-style: none; margin: 0 0 14px; padding: 0; }
+  li { padding-left: 22px; position: relative; margin-bottom: 10px; }
+  li::before { content: "✓"; position: absolute; left: 0; color: var(--accent); }
+  .not { color: var(--muted); border-left: 2px solid var(--border); padding-left: 14px; }
+  footer { margin-top: 72px; padding-top: 20px; padding-bottom: 40px; border-top: 1px solid var(--border); color: var(--muted); font-size: 12.5px; }
+  footer a { color: var(--muted); text-decoration: underline; }
+  footer a:hover { color: var(--text); }
+  footer span { margin: 0 6px; }
+  @media (max-width: 480px) {
+    h1 { font-size: 23px; margin-top: 40px; }
+    body { font-size: 14px; }
+    pre, .term { font-size: 12px; padding: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header><strong>Simabi Ltd</strong> &nbsp;/&nbsp; developer tools for ML engineers</header>
+
+<main>
+
+  <h1>Your GPU job is billing.<br>Is it actually training correctly?</h1>
+  <p class="lead">ComputeFence is a free CLI that runs in about 30 seconds before a fine-tuning job starts and catches silent configuration failures, such as CUDA quietly falling back to CPU or checkpoints written to a disk that disappears when the pod stops.</p>
+
+<pre><span class="prompt">$</span> pip install computefence &amp;&amp; computefence doctor</pre>
+<pre><span class="dim"># or, with no install:</span>
+<span class="prompt">$</span> uvx computefence doctor</pre>
+
+  <a class="cta" href="https://github.com/Francisco-Booth/ComputeFence">View on GitHub →</a>
+  <p class="dim" style="margin-top:14px">v0.3.1 &nbsp;·&nbsp; MIT licensed &nbsp;·&nbsp; free and open source</p>
+
+  <h2>What it catches</h2>
+  <ul>
+    <li>CUDA silently falling back to CPU, or the GPU not being visible to PyTorch</li>
+    <li>HuggingFace cache (<code>HF_HOME</code>) writing to ephemeral disk instead of a persistent volume</li>
+    <li>Accelerate config that doesn't match the actual GPU count</li>
+    <li>Insufficient disk headroom, and checkpoint output directories that won't persist</li>
+  </ul>
+  <p class="dim">Built for QLoRA, LoRA, Unsloth and Axolotl fine-tuning on rented GPU pods: RunPod, Vast.ai, Lambda Labs.</p>
+
+  <h2>What it doesn't catch</h2>
+  <p class="not">Training script correctness, learning rate issues, mid-run pod failures, export-stage out-of-memory errors, and merge integrity. It is a pre-flight check, not a monitor.</p>
+
+  <h2>Example output</h2>
+<div class="term"><span class="dim">ComputeFence v0.3.1 — Pre-flight diagnostic</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2 WARNINGS · 0 BLOCKERS · 4 PASSED
+
+<b>Environment</b>
+<span class="ok">✓</span> PyTorch 2.4.0 detected
+<span class="ok">✓</span> CUDA available — NVIDIA A40 (1 GPU)
+<span class="ok">✓</span> Accelerate config matches GPU count
+
+<b>Storage</b>
+<span class="warn">⚠</span> HF_HOME is not set — model cache will use ephemeral disk
+  <span class="dim">Fix: export HF_HOME=/workspace/.cache/huggingface</span>
+<span class="warn">⚠</span> Checkpoint output directory is not on a persistent volume
+  <span class="dim">Fix: point --output-dir at an attached network volume</span>
+<span class="ok">✓</span> Disk headroom: 82 GB free
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2 warning(s) found. Review before launching.
+<span class="dim">Exit codes: 0 = all passed, 1 = warnings, 2 = blockers</span></div>
+
+  <h2>Price</h2>
+  <p>Free and open source under the MIT licence. A design partner programme is available at $99 for three months: direct support, priority bug fixes, and work on custom checks you specify. Open an issue on GitHub or get in touch via the repository.</p>
+
+  <h2>About</h2>
+  <p>Simabi Ltd is a company registered in England and Wales, incorporated October 2026. Founded by Francisco Booth, a solo founder based in Havant, Hampshire. We build developer tools for ML engineers.</p>
+
+</main>
+
+<footer>
+  © 2026 Simabi Ltd <span>·</span> <a href="https://github.com/Francisco-Booth/ComputeFence">GitHub</a> <span>·</span> <a href="https://computefence.carrd.co">computefence.carrd.co</a>
+</footer>
+
+</body>
+</html>
