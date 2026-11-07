@@ -112,22 +112,27 @@
   <h2>Example output</h2>
 <div class="term"><span class="dim">ComputeFence v0.3.1 — Pre-flight diagnostic</span>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-2 WARNINGS · 0 BLOCKERS · 4 PASSED
+
+<span class="warn">3 WARNINGS</span>  ·  0 BLOCKERS  ·  <span class="ok">4 PASSED</span>
 
 <b>Environment</b>
-<span class="ok">✓</span> PyTorch 2.4.0 detected
-<span class="ok">✓</span> CUDA available — NVIDIA A40 (1 GPU)
-<span class="ok">✓</span> Accelerate config matches GPU count
+  <span class="ok">✓</span> Python 3.11.10 (/usr/bin/python)
+  <span class="ok">✓</span> PyTorch 2.4.1+cu124 detected (CUDA available — NVIDIA A40)
+  <span class="warn">⚠</span> No Accelerate config found — skipping GPU count check
+    <span class="dim">Fix: Run 'accelerate config' to create a configuration file</span>
 
 <b>Storage</b>
-<span class="warn">⚠</span> HF_HOME is not set — model cache will use ephemeral disk
-  <span class="dim">Fix: export HF_HOME=/workspace/.cache/huggingface</span>
-<span class="warn">⚠</span> Checkpoint output directory is not on a persistent volume
-  <span class="dim">Fix: point --output-dir at an attached network volume</span>
-<span class="ok">✓</span> Disk headroom: 82 GB free
+  <span class="ok">✓</span> HF_HOME is set to /workspace/.cache/huggingface
+  <span class="ok">✓</span> Persistent volume(s) detected: /workspace
+  <span class="warn">⚠</span> Volume /workspace — 9.8 GB free of 10.0 GB (below 20 GB)
+    <span class="dim">Fix: Free up disk space or move checkpoints to a larger volume: df -h to check usage</span>
+
+<b>Dataset</b>
+  <span class="warn">⚠</span> No dataset path provided — skipping dataset checks
+    <span class="dim">Fix: Run with --dataset path/to/your/dataset.csv to enable dataset checks</span>
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-2 warning(s) found. Review before launching.
+3 warning(s) found. Review before launching.
 <span class="dim">Exit codes: 0 = all passed, 1 = warnings, 2 = blockers</span></div>
 
   <h2>Price</h2>
