@@ -77,7 +77,7 @@
   @media (max-width: 480px) {
     h1 { font-size: 23px; margin-top: 40px; }
     body { font-size: 14px; }
-    pre, .term { font-size: 12px; padding: 12px; }
+    pre, .term { font-size: 11px; padding: 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
   }
 </style>
 </head>
@@ -95,7 +95,7 @@
 <span class="prompt">$</span> uvx computefence doctor</pre>
 
   <a class="cta" href="https://github.com/Francisco-Booth/ComputeFence">View on GitHub →</a>
-  <p class="dim" style="margin-top:14px">v0.3.1 &nbsp;·&nbsp; MIT licensed &nbsp;·&nbsp; free and open source</p>
+  <p class="dim" style="margin-top:14px">v0.3.2 &nbsp;·&nbsp; MIT licensed &nbsp;·&nbsp; free and open source</p>
 
   <h2>What it catches</h2>
   <ul>
@@ -110,14 +110,15 @@
   <p class="not">Training script correctness, learning rate issues, mid-run pod failures, export-stage out-of-memory errors, merge integrity, and GPU architecture and PyTorch build mismatches (for example, a newer GPU with an older PyTorch). It is a pre-flight check, not a monitor.</p>
 
   <h2>Example output</h2>
-<div class="term"><span class="dim">ComputeFence v0.3.1 — Pre-flight diagnostic</span>
+<div class="term"><span class="dim">ComputeFence v0.3.2 — Pre-flight diagnostic</span>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-<span class="warn">3 WARNINGS</span>  ·  0 BLOCKERS  ·  <span class="ok">4 PASSED</span>
+<span class="warn">3 WARNINGS</span>  ·  0 BLOCKERS  ·  <span class="ok">5 PASSED</span>
 
 <b>Environment</b>
   <span class="ok">✓</span> Python 3.11.10 (/usr/bin/python)
   <span class="ok">✓</span> PyTorch 2.4.1+cu124 detected (CUDA available — NVIDIA A40)
+  <span class="ok">✓</span> NVIDIA A40 compute capability sm_86 is supported by this PyTorch build
   <span class="warn">⚠</span> No Accelerate config found — skipping GPU count check
     <span class="dim">Fix: Run 'accelerate config' to create a configuration file</span>
 
