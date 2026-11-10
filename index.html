@@ -103,7 +103,7 @@
     <li>HuggingFace cache (<code>HF_HOME</code>) writing to ephemeral disk instead of a persistent volume</li>
     <li>Accelerate config set up for more processes than there are GPUs (when a config is present)</li>
     <li>GPU architecture mismatches: flags a GPU whose compute capability isn't supported by the installed PyTorch build</li>
-    <li>Low disk space, and whether a persistent volume is mounted</li>
+    <li>Low free disk space on the paths your job writes to</li>
   </ul>
   <p class="dim">Built for QLoRA, LoRA, Unsloth and Axolotl fine-tuning on rented GPU pods: RunPod, Vast.ai, Lambda Labs.</p>
 
